@@ -1,5 +1,6 @@
 import express, { Response, Request, NextFunction } from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 import { repos } from './routes/repos';
 import { AppError } from './typings/AppError';
 
@@ -13,6 +14,7 @@ export const app = express();
 
 // Routes
 app.use('/repos', cors(corsOptions), repos);
+app.use(bodyParser.json());
 
 // error handling middleware should be loaded after the loading the routes
 app.use(
