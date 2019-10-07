@@ -1,62 +1,36 @@
-Hippo Education TypeScript Developer Assessment
-===============================================
+# hippo-repository-explorer
+Hippo Repository Explorer
 
-This exercise is designed to assess how you approach tasks required in your
-position as a developer at Hippo Education. We are interested to see how you
-work as well, as what your final results are; include useful Git commit
-messages and comments where you think your code may be unclear.
+# Express.js (API) Notes:
+- Create a Router file hold both ‘/‘ and ‘repos’
+- Install Axios for Request
 
-Express Backend
----------------
-With the provided Express framework, implement the `/repos` API endpoint. The
-endpoint should aggregate GitHub repository data from the following sources:
+# React (Web) Notes:
+- Call Components are in /web/src/components folder
+- Call TypeScript Interfaces are in /web/src/types folder
+- Constants are in /web/src/constants folder
+- Redux Actions are in /web/src/actions folder
+- Redux Reducers are in /web/src/reducers folder
+- Redux Middleware are in /web/src/middleware folder
+- Jest test are in /web/src/tests folder
+- Added dependencies include: (redux, react-redux, redux-thunk, react-test-renderer, axios, uuid, react-bootstrap)
+- Updated Tslint config for better React Conventions
+- Upgraded react-scripts dependency to vi version 3.1.2 solve deprecated issues with recent release dependencies
+- Redux Store State Design
+	- initialState = {
+		repos: [],				// Holds original repo list/data from first call
+		languages: [],			// Holds list of available languages (Uses JS Set Method w/ Map to produce)
+		visibleRepos: [],			// Holds filtered repo list/data
+		view: SHOW_REPOS_VIEW,	// To possible views (repos, and details) 
+		details: [],				// Holds repo in focus commits data
+		selectedFilter: FILTER_ALL,	// Holds selected filter
+		full_name: null			// Holds repo in focus ‘full_name’ for request commit data
+	}
 
- - https://api.github.com/users/silverorange/repos
- - the provided JSON file (in `data/repos.json`). Assume this file can change
-   while the service is running.
- 
-The API endpoint should only return repositories where `repository.fork` is
-`false`.
+# FYI’s:
+- I created basic Jest Snapshot test as instructed, however, 5 of the 6 components depend on Redux store.  Each of the 5 test will need to have a mock store passed into a Provider wrapper for testing, not really my ideal way of testing interaction with the Redux. We can discuss this more if needed.
 
-The API endpoint should return JSON encoded data with a content-type of
-`application/json`.
-
-### Run
-
-```sh
-cd api/
-yarn install
-yarn start
-```
-
-React
------
-Using the provided `create-react-app` base, fetch repo data from the Express
-endpoint created above. Display a list of repositories. Include the repository
-name, description, language, and forks count.
-
-Add buttons for each language type. Make clicking on a language button filter
-the list by type.
-
-The last 30 commits for a repository can be loaded via this endpoint:
-`https://api.github.com/repos/${repo.full_name}/commits`. Make each repo in the
-list clickable. When you click a repo, display the most recent commit date,
-author, and message.
-
-### Run
-
-```sh
-cd web/
-yarn install
-yarn start
-```
-
-### Testing
-
-Implement basic snapshot regression tests tests using jest for your components.
-Jest is installed by create-react-app and can be run from the `web/` folder with
-`yarn test`.
-
-Environment
------------
-You can use any stable version of Node JS.
+# To Get Started
+To install just run ‘npm install’ in both api and web directories
+To run just run ‘npm start’
+To test run ‘npm test’

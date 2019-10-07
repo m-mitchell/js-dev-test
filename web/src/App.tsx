@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getRepos } from './actions/index';
+import ListFilter from './components/ListFilter';
+import RepoList from './components/RepoList';
+import Details from './components/Details';
+import './App.css'
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//constants
+import { SHOW_COMMITS_VIEW } from './constants/action-types';
+
+//Component TYPESCRIPT
+import { AppProps, AppState } from './types/index';
+
+const mapStateToProps = (state) => {
+  return {
+    view: state.repo.view
+   };
 };
 
-export default App;
+class App extends Component<AppProps, AppState> {
+
+  componentDidMount() {
+    this.props.getRepos();
+  }
+
+  render() {
+    return (
+
+      <div className="App">
+        <header className="App-header">
+          <p>
+            Hippo Developer Test App | By: Michael Cox
+          </p>
+        </header>
+        { this.props.view === SHOW_COMMITS_VIEW
+          ? <React.Fragment><Details /></React.Fragment>
+          : <React.Fragment><ListFilter /><RepoList /></React.Fragment>
+        }
+      </div>
+
+    )
+  }
+
+}
+
+export default connect(
+  mapStateToProps, { getRepos }
+)(App);

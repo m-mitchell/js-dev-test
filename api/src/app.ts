@@ -1,6 +1,6 @@
 import express, { Response, Request, NextFunction } from 'express';
 import cors from 'cors';
-import { repos } from './routes/repos';
+import { repos } from './routes';
 import { AppError } from './typings/AppError';
 
 // CORS header configuration
@@ -12,7 +12,9 @@ const corsOptions = {
 export const app = express();
 
 // Routes
-app.use('/repos', cors(corsOptions), repos);
+//app.use('/repos', cors(corsOptions), repos);
+app.use(cors(corsOptions));
+app.use(repos);
 
 // error handling middleware should be loaded after the loading the routes
 app.use(

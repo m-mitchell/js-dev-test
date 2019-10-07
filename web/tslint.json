@@ -1,11 +1,24 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
   "rules": {
+    "member-access": false,
     "ordered-imports": false,
+    "quotemark": false,
     "object-literal-sort-keys": false,
     "no-console": false,
+    "semicolon": false,
     "interface-name": false,
-    // tslint-react exceptions
+    "tslint-react exceptions": true,
     "jsx-no-lambda": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts"
+    ]
   }
 }
